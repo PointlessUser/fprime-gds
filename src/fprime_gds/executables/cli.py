@@ -265,9 +265,7 @@ class CompositeParser(ParserBase):
     @property
     def description(self):
         """Return parser description"""
-        return (
-            self.given or ",".join(item.description for item in self.constituents)
-        )
+        return self.given or ",".join(item.description for item in self.constituents)
 
     def get_arguments(self) -> Dict[Tuple[str, ...], Dict[str, Any]]:
         """Get the argument from all constituents"""

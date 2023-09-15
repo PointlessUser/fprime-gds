@@ -3,7 +3,9 @@ fprime_gds.executables.utils:
 
 Utility functions to enable the executables package to function seamlessly.
 """
+
 import atexit
+import contextlib
 import signal
 import subprocess
 import sys
@@ -57,29 +59,23 @@ def register_process_assassin(process, log=None):
         """
         # First attempt to kill the process uses SIGINT/SIGTERM giving the process a bit to wrap up its affairs.
         # This code allows for both pexpect and subprocess processes.
-        try:
+        with contextlib.suppress(KeyboardInterrupt, OSError):
             if hasattr(process, "terminate"):
                 process.terminate()
             else:
                 process.kill(signal.SIGINT)
             time.sleep(1)
-        except (KeyboardInterrupt, OSError, InterruptedError):
-            pass
         # Second attempt is to terminate with extreme prejudice. No process will survive this, ensuring that it is
         # really, really dead. Supports both pexpect and subprocess.
-        try:
+        with contextlib.suppress(KeyboardInterrupt, OSError):
             if hasattr(process, "terminate"):
                 process.kill()
             else:
                 process.kill(signal.SIGKILL)
-        except (KeyboardInterrupt, OSError, InterruptedError):
-            pass
         # Might as well close the log file because dead men tell no tales.
-        try:
+        with contextlib.suppress(KeyboardInterrupt, OSError):
             if log is not None:
                 log.close()
-        except (KeyboardInterrupt, OSError, InterruptedError):
-            pass
 
     atexit.register(assassin)
 

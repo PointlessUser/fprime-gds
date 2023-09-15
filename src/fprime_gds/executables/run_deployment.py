@@ -3,6 +3,7 @@
 #
 # Runs a deployment. Starts a GUI, a TCPServer, and the deployment application.
 ####
+import contextlib
 import os
 import sys
 import webbrowser
@@ -51,13 +52,11 @@ def launch_process(cmd, logfile=None, name=None, env=None, launch_time=5):
         return run_wrapped_application(cmd, logfile, env, launch_time)
     except AppWrapperException as awe:
         print(f"[ERROR] {str(awe)}.", file=sys.stderr)
-        try:
+        with contextlib.suppress(Exception):
             if logfile is not None:
                 with open(logfile) as file_handle:
                     for line in file_handle:
                         print(f"    [LOG] {line.strip()}", file=sys.stderr)
-        except Exception:
-            pass
         msg = f"Failed to run {name}"
         raise AppWrapperException(msg)
 

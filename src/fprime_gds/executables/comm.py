@@ -17,6 +17,7 @@ Note: assuming the module containing the ground adapter has been imported, then 
 """
 
 
+import contextlib
 import logging
 import signal
 import sys
@@ -36,12 +37,8 @@ from fprime_gds.common.communication.framing import FpFramerDeframer
 from fprime_gds.common.communication.updown import Downlinker, Uplinker
 
 # Uses non-standard PIP package pyserial, so test the waters before getting a hard-import crash
-try:
+with contextlib.suppress(ImportError):
     import fprime_gds.common.communication.adapters.uart
-except ImportError:
-    pass
-
-
 LOGGER = logging.getLogger("comm")
 
 
