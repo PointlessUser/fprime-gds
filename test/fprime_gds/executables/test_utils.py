@@ -5,7 +5,6 @@ from fprime_gds.executables import utils
 
 
 class TestFormatString(unittest.TestCase):
-
     def test_find_app_with_no_bin_dir_exits(self):
         path_with_no_bin = Path("")
         with self.assertRaises(SystemExit):

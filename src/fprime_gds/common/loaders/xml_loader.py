@@ -326,7 +326,9 @@ class XmlLoader(dict_loader.DictLoader):
                 arr_format = arr_memb.get(self.ARR_FORMAT_TAG)
                 arr_size = arr_memb.get(self.ARR_SIZE_TAG)
 
-                arr_obj = ArrayType.construct_type(type_name, type_obj, int(arr_size), arr_format)
+                arr_obj = ArrayType.construct_type(
+                    type_name, type_obj, int(arr_size), arr_format
+                )
 
                 self.array_types[type_name] = arr_obj
                 return arr_obj
@@ -376,7 +378,9 @@ class XmlLoader(dict_loader.DictLoader):
             return BoolType
         if type_name == "string":
             if self.STR_LEN_TAG not in xml_item.attrib:
-                print(f"Trying to parse string type, but found {self.STR_LEN_TAG} field")
+                print(
+                    f"Trying to parse string type, but found {self.STR_LEN_TAG} field"
+                )
                 return None
             max_length = int(xml_item.get(self.STR_LEN_TAG, 0))
             name = f"{context or ''}::{xml_item.get(self.ARG_NAME_TAG)}String"
@@ -398,9 +402,7 @@ class XmlLoader(dict_loader.DictLoader):
 
         # Abandon all hope
         msg = f"Could not find type {type_name}"
-        raise exceptions.GseControllerParsingException(
-            msg
-        )
+        raise exceptions.GseControllerParsingException(msg)
 
 
 class UnsupportedDictionaryVersionException(Exception):

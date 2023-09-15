@@ -54,8 +54,7 @@ class SeqBinaryWriter:
             # TKC - new command time format
             time = cmd_obj.get_time()
             return (
-                U32Type(time.seconds).serialize()
-                + U32Type(time.useconds ).serialize()
+                U32Type(time.seconds).serialize() + U32Type(time.useconds).serialize()
             )
 
         def __descriptor(cmd_obj):

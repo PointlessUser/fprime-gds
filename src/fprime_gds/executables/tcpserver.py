@@ -129,7 +129,6 @@ class ThreadedTCPRequestHandler(socketserver.StreamRequestHandler):
         self.cmdQueue = []
 
     def processRegistration(self, cmd):
-
         params = cmd.split()
         process_id = 0
 
@@ -232,7 +231,9 @@ class ThreadedTCPRequestHandler(socketserver.StreamRequestHandler):
         header = self.recv(5)
 
         if len(header) == 0:
-            print(f"Header information is empty, client {self.name.decode(DATA_ENCODING)} exiting.")
+            print(
+                f"Header information is empty, client {self.name.decode(DATA_ENCODING)} exiting."
+            )
             return header
         if header == b"List\n":
             return b"List"
@@ -543,7 +544,7 @@ def main(argv=None):
 
     except Exception as e:
         indent = len(program_name) * " "
-        sys.stderr.write(f'{program_name}: {repr(e)}' + "\n")
+        sys.stderr.write(f"{program_name}: {repr(e)}" + "\n")
         sys.stderr.write(indent + "  for help use --help\n")
         return 2
 

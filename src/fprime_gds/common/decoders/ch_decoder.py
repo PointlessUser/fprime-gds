@@ -65,8 +65,7 @@ class ChDecoder(Decoder):
         # list for decoded channel values
         ch_list = []
 
-        while (ptr < len(data)):
-
+        while ptr < len(data):
             # Decode Ch ID here...
             self.id_obj.deserialize(data, ptr)
             ptr += self.id_obj.getSize()

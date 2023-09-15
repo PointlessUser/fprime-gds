@@ -20,7 +20,7 @@ BASE_MODULE_ARGUMENTS = [sys.executable, "-u", "-m"]
 
 
 def parse_args():
-    """ Parse command line arguments
+    """Parse command line arguments
     Gets an argument parsers to read the command line and process the arguments. Return
     the arguments in their namespace.
 
@@ -63,7 +63,7 @@ def launch_process(cmd, logfile=None, name=None, env=None, launch_time=5):
 
 
 def launch_tts(parsed_args):
-    """ Launch the ThreadedTcpServer middleware application
+    """Launch the ThreadedTcpServer middleware application
 
 
     Args:
@@ -85,7 +85,7 @@ def launch_tts(parsed_args):
 
 
 def launch_html(parsed_args):
-    """ Launch the Flask application
+    """Launch the Flask application
 
     Args:
         parsed_args: parsed argument namespace
@@ -114,13 +114,15 @@ def launch_html(parsed_args):
     ret = launch_process(gse_args, name="HTML GUI", env=flask_env, launch_time=2)
     if parsed_args.gui == "html":
         webbrowser.open(
-            f"http://{str(parsed_args.gui_addr)}:{str(parsed_args.gui_port)}/", new=0, autoraise=True
+            f"http://{str(parsed_args.gui_addr)}:{str(parsed_args.gui_port)}/",
+            new=0,
+            autoraise=True,
         )
     return ret
 
 
 def launch_app(parsed_args):
-    """ Launch the raw application
+    """Launch the raw application
 
     Args:
         parsed_args: parsed argument namespace
@@ -129,14 +131,20 @@ def launch_app(parsed_args):
     """
     app_path = parsed_args.app
     logfile = os.path.join(parsed_args.logs, f"{app_path.name}.log")
-    app_cmd = [app_path.absolute(), "-p", str(parsed_args.port), "-a", parsed_args.address]
+    app_cmd = [
+        app_path.absolute(),
+        "-p",
+        str(parsed_args.port),
+        "-a",
+        parsed_args.address,
+    ]
     return launch_process(
         app_cmd, name=f"{app_path.name} Application", logfile=logfile, launch_time=1
     )
 
 
 def launch_comm(parsed_args):
-    """ Launch the communication adapter process
+    """Launch the communication adapter process
 
     Args:
         parsed_args: parsed argument namespace
@@ -144,9 +152,15 @@ def launch_comm(parsed_args):
         launched process
     """
     arguments = CommParser().reproduce_cli_args(parsed_args)
-    arguments = arguments + ["--log-directly"] if "--log-directly" not in arguments else arguments
+    arguments = (
+        arguments + ["--log-directly"]
+        if "--log-directly" not in arguments
+        else arguments
+    )
     app_cmd = BASE_MODULE_ARGUMENTS + ["fprime_gds.executables.comm"] + arguments
-    return launch_process(app_cmd, name=f'comm[{parsed_args.adapter}] Application', launch_time=1)
+    return launch_process(
+        app_cmd, name=f"comm[{parsed_args.adapter}] Application", launch_time=1
+    )
 
 
 def main():

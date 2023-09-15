@@ -10,6 +10,8 @@ event or the channel FR_CycleTime.
 
 @bug No known bugs
 """
+
+
 class DataTemplate:
     """Base class for all data template classes"""
 

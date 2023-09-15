@@ -52,7 +52,7 @@ class CmdTemplate(data_template.DataTemplate):
         if not isinstance(arguments, list):
             raise TypeMismatchException(list, type(arguments))
 
-        for (argname, argdesc, argtype) in arguments:
+        for argname, argdesc, argtype in arguments:
             #
             if not isinstance(argname, str):
                 raise TypeMismatchException(int, type(argname))
@@ -133,7 +133,6 @@ class CmdTemplate(data_template.DataTemplate):
     # of the code.
 
     def setArgs(self, values):
-
         if len(values) != len(self.arguments):
             raise ArgLengthMismatchException(len(self.arguments), len(values))
 

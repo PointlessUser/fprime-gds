@@ -41,15 +41,15 @@ class CmdXmlLoader(XmlLoader):
             respectively and the values are CmdTemplate objects
         """
         xml_tree = self.get_xml_tree(path)
-        versions = xml_tree.attrib.get("framework_version", "unknown"), xml_tree.attrib.get("project_version", "unknown")
+        versions = xml_tree.attrib.get(
+            "framework_version", "unknown"
+        ), xml_tree.attrib.get("project_version", "unknown")
 
         # Check if xml dict has commands section
         cmd_section = self.get_xml_section(self.CMD_SECT, xml_tree)
         if cmd_section is None:
             msg = f"Xml dict did not have a {self.EVENT_SECT} section"
-            raise exceptions.GseControllerParsingException(
-                msg
-            )
+            raise exceptions.GseControllerParsingException(msg)
 
         id_dict = {}
         name_dict = {}

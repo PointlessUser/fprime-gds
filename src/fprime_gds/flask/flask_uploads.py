@@ -184,7 +184,7 @@ def config_for_set(uset, app, defaults=None):
                      settings.
     """
     config = app.config
-    prefix = f'UPLOADED_{uset.name.upper()}_'
+    prefix = f"UPLOADED_{uset.name.upper()}_"
     using_defaults = False
     if defaults is None:
         defaults = dict(dest=None, url=None)

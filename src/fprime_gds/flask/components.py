@@ -58,7 +58,6 @@ class FlaskEndpointRamHistory(SelfCleaningRamHistory):
             limit: limit (count) for maximum results returned
         """
         with self.lock:
-
             if start is not None:
                 if start not in self.retrieved_cursors:
                     self.count_offsets[start] = self.count

@@ -70,7 +70,7 @@ class IntegrationTestAPI(DataHandler):
         self.last_evr = None
 
     def setup(self):
-        """ Set up the API, assumes pipeline is now setup """
+        """Set up the API, assumes pipeline is now setup"""
         self.pipeline.coders.register_event_consumer(self)
 
     def teardown(self):
@@ -148,10 +148,10 @@ class IntegrationTestAPI(DataHandler):
             fail_color = TestLogger.ORANGE
 
         if value:
-            ast_msg = f'{ast_msg} succeeded: {msg}'
+            ast_msg = f"{ast_msg} succeeded: {msg}"
             self.__log(ast_msg, TestLogger.GREEN)
         else:
-            ast_msg = f'{ast_msg} failed: {msg}'
+            ast_msg = f"{ast_msg} failed: {msg}"
             self.__log(ast_msg, fail_color)
 
         if not expect:
@@ -195,7 +195,7 @@ class IntegrationTestAPI(DataHandler):
             self.event_history.clear()
             self.telemetry_history.clear()
             msg = "Clearing Test Histories"
-            
+
         self.__log(msg, TestLogger.WHITE)
         self.command_history.clear()
 
@@ -402,7 +402,9 @@ class IntegrationTestAPI(DataHandler):
             return self.await_event_sequence(events, start=start, timeout=timeout)
         return self.await_event(events, start=start, timeout=timeout)
 
-    def send_and_assert_command(self, command, args=[], max_delay=None, timeout=5, events=None):
+    def send_and_assert_command(
+        self, command, args=[], max_delay=None, timeout=5, events=None
+    ):
         """
         This helper will send a command and verify that the command was dispatched and completed
         within the F' deployment. This helper can retroactively check that the delay between
@@ -427,7 +429,6 @@ class IntegrationTestAPI(DataHandler):
             msg = f"The delay, {delay}, between the two events should be < {max_delay}"
             assert delay < max_delay, msg
         return results
-
 
     ######################################################################################
     #   Command Asserts
@@ -504,14 +505,18 @@ class IntegrationTestAPI(DataHandler):
         """
         if isinstance(channel, str):
             ch_dict = self.pipeline.dictionaries.channel_name
-            matching = [ch_dict[name].get_id() for name in ch_dict.keys() if name.endswith(f".{channel}")] 
+            matching = [
+                ch_dict[name].get_id()
+                for name in ch_dict.keys()
+                if name.endswith(f".{channel}")
+            ]
             if channel in ch_dict:
                 return ch_dict[channel].get_id()
             if force_component or not matching:
                 msg = f"The telemetry mnemonic, {channel}, wasn't in the dictionary"
                 raise KeyError(msg)
             return matching
-        
+
         ch_dict = self.pipeline.dictionaries.channel_id
         if channel in ch_dict:
             return channel
@@ -541,7 +546,11 @@ class IntegrationTestAPI(DataHandler):
 
         if not predicates.is_predicate(channel) and channel is not None:
             channel = self.translate_telemetry_name(channel, force_component=False)
-            channel = predicates.is_a_member_of(channel) if isinstance(channel, list) else predicates.equal_to(channel)
+            channel = (
+                predicates.is_a_member_of(channel)
+                if isinstance(channel, list)
+                else predicates.equal_to(channel)
+            )
 
         if not predicates.is_predicate(value) and value is not None:
             value = predicates.equal_to(value)
@@ -725,7 +734,11 @@ class IntegrationTestAPI(DataHandler):
         """
         if isinstance(event, str):
             event_dict = self.pipeline.dictionaries.event_name
-            matching = [event_dict[name].get_id() for name in event_dict.keys() if name.endswith(f".{event}")] 
+            matching = [
+                event_dict[name].get_id()
+                for name in event_dict.keys()
+                if name.endswith(f".{event}")
+            ]
             if event in event_dict:
                 return event_dict[event].get_id()
             if force_component or not matching:
@@ -762,7 +775,11 @@ class IntegrationTestAPI(DataHandler):
 
         if not predicates.is_predicate(event) and event is not None:
             event = self.translate_event_name(event, force_component=False)
-            event = predicates.is_a_member_of(event) if isinstance(event, list) else predicates.equal_to(event)
+            event = (
+                predicates.is_a_member_of(event)
+                if isinstance(event, list)
+                else predicates.equal_to(event)
+            )
 
         if not predicates.is_predicate(args) and args is not None:
             args = predicates.args_predicate(args)
@@ -1059,11 +1076,13 @@ class IntegrationTestAPI(DataHandler):
                             return searcher.get_return_value()
                     time.sleep(0.1)
             except self.TimeoutException:
-                self.__log(f'{name} timed out and ended unsuccessfully.', TestLogger.YELLOW)
+                self.__log(
+                    f"{name} timed out and ended unsuccessfully.", TestLogger.YELLOW
+                )
             finally:
                 signal.alarm(0)
         else:
-            self.__log(f'{name} ended unsuccessfully.', TestLogger.YELLOW)
+            self.__log(f"{name} ended unsuccessfully.", TestLogger.YELLOW)
         return searcher.get_return_value()
 
     def find_history_item(self, search_pred, history, start=None, timeout=0):
@@ -1217,7 +1236,9 @@ class IntegrationTestAPI(DataHandler):
                     self.log(f"Count search counted another item: {item}")
                     self.ret_val.append(item)
                     if self.count_pred(len(self.ret_val)):
-                        msg = f"Count search found a correct amount: {len(self.ret_val)}"
+                        msg = (
+                            f"Count search found a correct amount: {len(self.ret_val)}"
+                        )
                         self.log(msg, TestLogger.YELLOW)
                         return True
                 return False

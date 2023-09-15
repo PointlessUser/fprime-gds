@@ -94,9 +94,7 @@ class PktXmlLoader(XmlLoader):
         packet_list = self.get_xml_tree(path)
         if packet_list.tag != self.PKT_LIST_TAG:
             msg = f"expected packet list to have tag {self.PKT_LIST_TAG}, but found {packet_list.tag}"
-            raise exceptions.GseControllerParsingException(
-                msg
-            )
+            raise exceptions.GseControllerParsingException(msg)
 
         id_dict = {}
         name_dict = {}
@@ -115,9 +113,7 @@ class PktXmlLoader(XmlLoader):
 
                 if ch_name not in ch_name_dict:
                     msg = f"Channel {ch_name} in pkt {pkt_name}, but cannot be found in channel dictionary"
-                    raise exceptions.GseControllerParsingException(
-                        msg
-                    )
+                    raise exceptions.GseControllerParsingException(msg)
 
                 ch_list.append(ch_name_dict[ch_name])
 

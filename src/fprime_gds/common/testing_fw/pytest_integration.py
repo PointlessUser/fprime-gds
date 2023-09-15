@@ -25,7 +25,7 @@ SEQUENCE_COUNTER = -1
 
 
 def pytest_addoption(parser):
-    """ Add fprime-gds options to the pytest parser
+    """Add fprime-gds options to the pytest parser
 
     Pytest allows users to add options to its parser. These options act very similar to argparse options and thus can be
     reused from the standard GDS command line processing. Note: pytest restricts the use of short flags (-[a-z]) thus we
@@ -40,9 +40,9 @@ def pytest_addoption(parser):
         parser.addoption(*flags, **specifiers)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def fprime_test_api_session(request):
-    """ Create a session-level fprime test API
+    """Create a session-level fprime test API
 
     This is a pytest session fixture. Using the options added above, this will parse the necessary options for
     connecting the standard pipeline to the running GDS. This pipeline is supplied to the fprime test API returned as
@@ -64,7 +64,9 @@ def fprime_test_api_session(request):
     api = None
     try:
         # Parse the command line arguments into a client connection
-        arg_ns = pipeline_parser.handle_arguments(request.config.known_args_namespace, client=True)
+        arg_ns = pipeline_parser.handle_arguments(
+            request.config.known_args_namespace, client=True
+        )
 
         # Build a new pipeline with the parsed and processed arguments
         pipeline = pipeline_parser.pipeline_factory(arg_ns, pipeline)
@@ -91,9 +93,9 @@ def fprime_test_api_session(request):
             print(f"[WARNING] Exception in pipeline teardown: {exc}", file=sys.stderr)
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def fprime_test_api(fprime_test_api_session, request):
-    """ Provide a per-testcase fixture
+    """Provide a per-testcase fixture
 
     Although the test API should exist across all testcases and thus be created at the "session" level, individual test
     cases need a clean test API that has logged the testcases has started. Thus, the session API is refined into a

@@ -13,14 +13,13 @@ from fprime_gds.common.data_types.pkt_data import PktData
 
 class DataLogger(fprime_gds.common.handlers.DataHandler):
     def __init__(self, logdir, verbose=False, csv=False, prefix=""):
-
         self.logdir = logdir
 
-        self.recv_file = f'{prefix}recv.bin'
-        self.send_file = f'{prefix}sent.bin'
-        self.telem_file = f'{prefix}channel.log'
-        self.event_file = f'{prefix}event.log'
-        self.command_file = f'{prefix}command.log'
+        self.recv_file = f"{prefix}recv.bin"
+        self.send_file = f"{prefix}sent.bin"
+        self.telem_file = f"{prefix}channel.log"
+        self.event_file = f"{prefix}event.log"
+        self.command_file = f"{prefix}command.log"
 
         self.verbose = verbose
         self.csv = csv

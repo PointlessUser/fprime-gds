@@ -29,7 +29,7 @@ LOGGER = logging.getLogger("decoder")
 
 
 class DecodingException(Exception):
-    """ Decoding Exception """
+    """Decoding Exception"""
 
 
 class Decoder(

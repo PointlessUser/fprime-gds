@@ -187,5 +187,5 @@ class ConfigManager(configparser.ConfigParser):
             section: Section to set all the defaults config values for
         """
         self.add_section(section)
-        for (key, value) in self.__prop[section].items():
+        for key, value in self.__prop[section].items():
             self.set(section, key, str(value))

@@ -8,14 +8,22 @@ from fprime_gds.executables import run_deployment
 
 
 class TestRunDeployment(unittest.TestCase):
-
     def test_as_in_installation_instructions(self):
         # Same as the "Testing F´ GDS Installation Via Running HTML GUI" from
         # https://nasa.github.io/fprime/INSTALL.html
         # fprime-gds -g html -d <path to fprime checkout>/Ref/build-artifacts/<platform>/Test
         with tempfile.TemporaryDirectory() as temporary_directory:
             self.create_fake_deployment_structure(temporary_directory)
-            with mock.patch("sys.argv", ["main", "-g", "html", "-d", str(Path(temporary_directory) / platform.system() / "Test")]):
+            with mock.patch(
+                "sys.argv",
+                [
+                    "main",
+                    "-g",
+                    "html",
+                    "-d",
+                    str(Path(temporary_directory) / platform.system() / "Test"),
+                ],
+            ):
                 run_deployment.parse_args()
 
     def create_fake_deployment_structure(self, temporary_directory):

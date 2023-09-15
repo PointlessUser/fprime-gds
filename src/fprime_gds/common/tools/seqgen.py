@@ -77,9 +77,7 @@ def generateSequence(inputFile, outputFile, dictionary, timebase, cont=False):
             try:
                 if mnemonic not in cmd_name_dict:
                     msg = f"Line {i + 1}: '{mnemonic}' does not match any command in the command dictionary."
-                    raise SeqGenException(
-                        msg
-                    )
+                    raise SeqGenException(msg)
                 # Set the command arguments:
                 try:
                     cmd_time = TimeType(
@@ -95,9 +93,7 @@ def generateSequence(inputFile, outputFile, dictionary, timebase, cont=False):
                     )
                 except CommandArgumentsException as e:
                     msg = f"Line {i + 1}: {mnemonic} errored: {','.join(e.errors)}"
-                    raise SeqGenException(
-                        msg
-                    )
+                    raise SeqGenException(msg)
                 command_list.append(cmd_data)
             except SeqGenException as exc:
                 if not cont:
@@ -116,9 +112,7 @@ def generateSequence(inputFile, outputFile, dictionary, timebase, cont=False):
         writer.open(outputFile)
     except:
         msg = f"Encountered problem opening output file '{outputFile}'."
-        raise SeqGenException(
-            msg
-        )
+        raise SeqGenException(msg)
 
     writer.write(command_list)
     writer.close()

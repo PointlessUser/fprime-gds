@@ -62,7 +62,8 @@ class PythonLoader(dict_loader.DictLoader):
             mod_dict = {
                 field: getattr(module, field)
                 for field in dir(module)
-                if field.find("__") != 0 # Verify it is not a hidden field (doesn't start with "__")
+                if field.find("__")
+                != 0  # Verify it is not a hidden field (doesn't start with "__")
             }
 
             module_dicts.append(mod_dict)

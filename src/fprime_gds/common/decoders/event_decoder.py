@@ -63,8 +63,7 @@ class EventDecoder(decoder.Decoder):
 
         event_list = []
 
-        while (ptr < len(data)):
-
+        while ptr < len(data):
             # Decode event ID here...
             self.id_obj.deserialize(data, ptr)
             ptr += self.id_obj.getSize()

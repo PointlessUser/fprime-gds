@@ -83,7 +83,9 @@ integrated configuration with ground in-the-loop.
             "fprime-cli = fprime_gds.executables.fprime_cli:main",
             "fprime-seqgen = fprime_gds.common.tools.seqgen:main",
         ],
-        "pytest11": ["fprime_test_api = fprime_gds.common.testing_fw.pytest_integration"]
+        "pytest11": [
+            "fprime_test_api = fprime_gds.common.testing_fw.pytest_integration"
+        ],
     },
     ####
     # Classifiers:
@@ -118,6 +120,6 @@ integrated configuration with ground in-the-loop.
         "argcomplete>=1.12.3",
         "Jinja2>=2.11.3",
         "openpyxl>=3.0.10",
-        "pyserial>=3.5"
+        "pyserial>=3.5",
     ],
 )

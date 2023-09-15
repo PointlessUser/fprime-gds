@@ -432,7 +432,9 @@ class args_predicate(predicate):
         """
         Returns a string outlining the evaluation done by the predicate.
         """
-        return f"True IFF ∀ pi ∈ P and xi ∈ x; pi(xi) is True. Where P is {self.arg_spec}"
+        return (
+            f"True IFF ∀ pi ∈ P and xi ∈ x; pi(xi) is True. Where P is {self.arg_spec}"
+        )
 
 
 class event_predicate(predicate):
@@ -539,7 +541,8 @@ class telemetry_predicate(predicate):
             isinstance(telemetry, ChData)
             and self.id_pred(telemetry.get_id())
             and self.value_pred(telemetry.get_val())
-            and self.time_pred(telemetry.get_time()))
+            and self.time_pred(telemetry.get_time())
+        )
 
     def __str__(self):
         """

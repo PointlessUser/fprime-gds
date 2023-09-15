@@ -56,7 +56,7 @@ class EventTemplate(data_template.DataTemplate):
         if not isinstance(args, list):
             raise TypeMismatchException(list, type(args))
 
-        for (arg_name, arg_desc, arg_type) in args:
+        for arg_name, arg_desc, arg_type in args:
             if not isinstance(arg_name, str):
                 raise TypeMismatchException(str, type(arg_name))
 

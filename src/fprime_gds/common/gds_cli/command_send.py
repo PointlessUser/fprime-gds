@@ -123,6 +123,7 @@ class CommandSendCommand(BaseCommand):
         if json:
             # This is questionable whether it should be supported
             from fprime_gds.flask.json import getter_based_json
+
             return str(getter_based_json(item))
 
         cmd_string = "%s (%d) | Takes %d arguments.\n" % (
@@ -133,7 +134,7 @@ class CommandSendCommand(BaseCommand):
 
         cmd_description = item.get_description()
         if cmd_description:
-            cmd_string += f"Description: {(cmd_description)}\n" 
+            cmd_string += f"Description: {(cmd_description)}\n"
 
         for arg in item.get_args():
             arg_name, arg_description, arg_type = arg
@@ -147,7 +148,6 @@ class CommandSendCommand(BaseCommand):
             cmd_string += f"\t{arg_name} ({arg_type.__name__}): {arg_description}\n"
 
         return cmd_string
-
 
     @classmethod
     def _execute_command(cls, args, api: IntegrationTestAPI):

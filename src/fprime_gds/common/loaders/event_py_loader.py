@@ -54,7 +54,6 @@ class EventPyLoader(python_loader.PythonLoader):
         name_dict = {}
 
         for event_dict in module_dicts:
-
             try:
                 # Create an event template object
                 event_temp = event_template.EventTemplate(

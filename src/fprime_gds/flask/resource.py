@@ -38,7 +38,7 @@ class DictionaryResource(Resource):
         return {
             "dictionary": self.dictionary,
             "project_version": self.project_version,
-            "framework_version": self.framework_version
+            "framework_version": self.framework_version,
         }
 
 
@@ -62,10 +62,16 @@ class HistoryResourceBase(Resource):
         """
         self.parser = RequestParser()
         self.parser.add_argument(
-            "session", required=True, help="Session key for fetching data.", location="args"
+            "session",
+            required=True,
+            help="Session key for fetching data.",
+            location="args",
         )
         self.parser.add_argument(
-            "limit", required=False, help="Limit to results returned (default 2000)", location="args"
+            "limit",
+            required=False,
+            help="Limit to results returned (default 2000)",
+            location="args",
         )
 
         self.history = history

@@ -49,15 +49,15 @@ class ChXmlLoader(XmlLoader):
             respectively and the values are ChTemplate objects
         """
         xml_tree = self.get_xml_tree(path)
-        versions = xml_tree.attrib.get("framework_version", "unknown"), xml_tree.attrib.get("project_version", "unknown")
+        versions = xml_tree.attrib.get(
+            "framework_version", "unknown"
+        ), xml_tree.attrib.get("project_version", "unknown")
 
         # Check if xml dict has channels section
         ch_section = self.get_xml_section(self.CH_SECT, xml_tree)
         if ch_section is None:
             msg = f"Xml dict did not have a {self.CH_SECT} section"
-            raise exceptions.GseControllerParsingException(
-                msg
-            )
+            raise exceptions.GseControllerParsingException(msg)
 
         id_dict = {}
         name_dict = {}

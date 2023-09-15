@@ -113,7 +113,9 @@ class ThreadedTransportClient(TransportClient, ABC):
             timeout: read timeout supplied to the recv call within the thread. Sets shutdown time.
         """
         super().__init__()
-        self.__data_recv_thread = threading.Thread(target=self.recv_thread, name="TTSReceiverThread")
+        self.__data_recv_thread = threading.Thread(
+            target=self.recv_thread, name="TTSReceiverThread"
+        )
         self.__stop_event = threading.Event()
         self.timeout = timeout
         self.started = False
@@ -142,11 +144,11 @@ class ThreadedTransportClient(TransportClient, ABC):
             self.__data_recv_thread.join()
 
     def stop(self):
-        """ Stop the receive thread without waiting """
+        """Stop the receive thread without waiting"""
         self.__stop_event.set()
 
     def poll(self):
-        """ Poll the receive and process the result
+        """Poll the receive and process the result
 
         Poll the receive and process the results. This will be called by the receive thread, but is separated out for
         flexibility in case users wish to reduce the number of empty threads in the system.
@@ -215,14 +217,12 @@ class ThreadedTCPSocketClient(ThreadedTransportClient):
             super().connect(connection_uri, incoming_routing, outgoing_routing)
         except ValueError as vle:
             msg = f"Failed to parse connection uri: {connection_uri}. {vle}"
-            raise TransportationException(
-                msg
-            )
+            raise TransportationException(msg)
         except Exception as exc:
-            msg = f"Failed to connect to transportation layer at: {connection_uri}. {exc}"
-            raise TransportationException(
-                msg
+            msg = (
+                f"Failed to connect to transportation layer at: {connection_uri}. {exc}"
             )
+            raise TransportationException(msg)
 
     def disconnect(self):
         """Disconnect the socket client"""

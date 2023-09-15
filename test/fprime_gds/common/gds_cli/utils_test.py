@@ -36,7 +36,9 @@ def test_repeat_exits_at_counter():
         external_func()
         return counter + 1, exit_num, external_func
 
-    test_api_utils.repeat_until_interrupt(increment_with_interrupt, 0, 3, increment_count)
+    test_api_utils.repeat_until_interrupt(
+        increment_with_interrupt, 0, 3, increment_count
+    )
 
     assert count == 3
 
@@ -137,6 +139,7 @@ def test_repeat_with_function_returning_enclosed_string_valid():
 # ==============================================================================
 # Test test_api_utils.get_item_list
 # ==============================================================================
+
 
 # Pytest fixtures work by reusing outer names, so disable this warning
 # pylint: disable=redefined-outer-name

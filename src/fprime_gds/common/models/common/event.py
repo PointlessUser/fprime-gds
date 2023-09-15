@@ -50,7 +50,7 @@ class Event:
         if not isinstance(arguments, list):
             raise TypeMismatchException(list, type(arguments))
 
-        for (argname, argdesc, argtype) in arguments:
+        for argname, argdesc, argtype in arguments:
             #
             if not isinstance(argname, str):
                 raise TypeMismatchException(str, type(argname))

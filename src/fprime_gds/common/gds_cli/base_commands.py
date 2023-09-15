@@ -215,7 +215,6 @@ class QueryHistoryCommand(BaseCommand):
         Retrieves an F' item that has occurred since the given time and returns
         its data.
         """
-    
 
     @classmethod
     def _get_item_string(

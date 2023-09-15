@@ -193,7 +193,9 @@ class Distributor(DataHandler):
         self.__buf.extend(data)
 
         (leftover_data, raw_msgs) = self.parse_into_raw_msgs_api(self.__buf)
-        assert leftover_data == self.__buf, "Leftover data is not equivalent to the remaining data in buffer"
+        assert (
+            leftover_data == self.__buf
+        ), "Leftover data is not equivalent to the remaining data in buffer"
 
         for raw_msg in raw_msgs:
             (length, data_desc, msg) = self.parse_raw_msg_api(raw_msg)
