@@ -62,7 +62,7 @@ class ParserBase(ABC):
     @property
     def description(self):
         """Return parser description"""
-        return self.DESCRIPTION if self.DESCRIPTION else "Unknown command line parser"
+        return self.DESCRIPTION or "Unknown command line parser"
 
     @abstractmethod
     def get_arguments(self) -> Dict[Tuple[str, ...], Dict[str, Any]]:
@@ -232,10 +232,9 @@ class DetectionParser(ParserBase):
         if not child_directories:
             msg = f"No deployments found in {detected_toolchain}. Specify deployment with: --deployment"
             raise Exception(msg)
-        # Works for the old structure where the bin, lib, and dict directories live immediately under the platform
-        elif len(child_directories) == 3 and set(
-            [path.name for path in child_directories]
-        ) == {"bin", "lib", "dict"}:
+        elif len(child_directories) == 3 and {
+            path.name for path in child_directories
+        } == {"bin", "lib", "dict"}:
             args.deployment = detected_toolchain
             return args
         elif len(child_directories) > 1:
@@ -267,9 +266,7 @@ class CompositeParser(ParserBase):
     def description(self):
         """Return parser description"""
         return (
-            self.given
-            if self.given
-            else ",".join(item.description for item in self.constituents)
+            self.given or ",".join(item.description for item in self.constituents)
         )
 
     def get_arguments(self) -> Dict[Tuple[str, ...], Dict[str, Any]]:
@@ -540,7 +537,7 @@ class FileHandlingParser(ParserBase):
             ("--file-storage-directory",): {
                 "dest": "files_directory",
                 "action": "store",
-                "default": "/tmp/" + username + "/fprime-downlink/",
+                "default": f"/tmp/{username}/fprime-downlink/",
                 "required": False,
                 "type": str,
                 "help": "File to store uplink and downlink files. Default: %(default)s",
@@ -579,7 +576,7 @@ class StandardPipelineParser(CompositeParser):
             "packet_spec": args_ns.packet_spec,
             "logging_prefix": args_ns.logs,
         }
-        pipeline = pipeline if pipeline else StandardPipeline()
+        pipeline = pipeline or StandardPipeline()
         pipeline.transport_implementation = args_ns.connection_transport
         try:
             pipeline.setup(**pipeline_arguments)
